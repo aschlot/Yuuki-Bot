@@ -1,5 +1,3 @@
-$launch_time = Time.now
-
 module YuukiBot
   require 'easy_translate'
   require 'haste'
@@ -21,65 +19,49 @@ module YuukiBot
     puts '[INFO] Loading discordrb from Environment location.'
     require_relative "#{ENV['DISCORDRB_PATH']}/lib/discordrb"
   end
-  require_relative 'modules/setup'
-  require_relative 'modules/version'
+  require_relative 'old_cmds/setup'
+  require_relative 'old_cmds/version'
 
-  class CommandrbBot < CommandrbBot
-    def is_owner?(id)
-      if YuukiBot.config['master_owner'].to_i == id
-        true
-      else
-        response = REDIS.get('owners')
-		return false if response.nil?
-		return JSON.parse(response).include?(id)
-      end
-    end
-  end
+  require_relative 'framework/cmds'
+  require_relative 'framework/exts'
 
-  init_hash = YuukiBot.build_init
-
-  $cbot = CommandrbBot.new(init_hash)
-
-  module_dirs = %w(owner helper logging misc mod utility)
+  module_dirs = %w(helper) # owner logging misc mod utility)
   module_dirs.each {|dir|
-    Dir["modules/#{dir}/*.rb"].each { |r|
+    Dir["old_cmds/#{dir}/*.rb"].each { |r|
      require_relative r
      puts "Loaded: #{r}" if @config['verbose']
     }
   }
 
-  require_relative 'modules/custom'
-  puts 'Loaded custom commands!'
-
   # Load Extra Commands if enabled.
-  if YuukiBot.config['extra_commands']
-    puts 'Loading: Extra commands...' if @config['verbose']
-    Dir['modules/extra/*.rb'].each { |r| require_relative r; puts "Loaded: #{r}" if @config['verbose'] }
-  end
 
-  # I cant think of a better way to this and honestly all this code is going to be abandoned soon.
-  # forgive me, for i have sinned
-  if YuukiBot.config['redis_password'].nil?
-    orig_redis = Redis.new(host: YuukiBot.config['redis_host'], port: YuukiBot.config['redis_port'])
-  else
-    orig_redis = Redis.new(host: YuukiBot.config['redis_host'], port: YuukiBot.config['redis_port'], password: YuukiBot.config['redis_password'])
-  end
+  # if YuukiBot.config['extra_commands']
+  #   puts 'Loading: Extra commands...' if @config['verbose']
+  #   Dir['old_cmds/extra/*.rb'].each { |r| require_relative r; puts "Loaded: #{r}" if @config['verbose'] }
+  # end
 
-  REDIS = Redis::Namespace.new(YuukiBot.config['redis_namespace'], :redis => orig_redis )
+  ORIG_REDIS = Redis.new(host: YuukiBot.config['redis_host'], port: YuukiBot.config['redis_port'])
+  REDIS = Redis::Namespace.new(YuukiBot.config['redis_namespace'], :redis => ORIG_REDIS )
 
-  $cbot.bot.message do |event|
-    Helper.calc_exp(event.user.id)
-  end
+  @bot = YuukiBot::Cmds::Bot.new(
+    prefixes: @config['prefixes'],
+    db: REDIS, ready: @config['ready'],
+    token: @config['token'],
+    client_id: @config['client_id'],
+    parse_self: @config['parse_self']
+  )
+
+  @bot.load_ext('core/load')
 
   puts '>> Initial loading succesful!! <<'
-  # exit(1001) if YuukiBot.config['pretend_run']
-  $uploader =  Haste::Uploader.new("https://paste.erisa.moe" )
+  exit(1001) if YuukiBot.config['pretend_run']
+  $uploader =  Haste::Uploader.new
   if YuukiBot.config['use_pry']
-    $cbot.bot.run(true)
+    @bot.bot.run(true)
     require 'pry'
     binding.pry
   else
     puts 'Connecting to Discord....'
-    $cbot.bot.run
+    @bot.run
   end
 end

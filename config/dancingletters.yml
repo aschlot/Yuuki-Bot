@@ -1,6 +1,3 @@
-# This file is needed for the "dance" command.
-# It is likely that your bot will not be in the server these emojis come from. 
-# If so, please replace the emoji IDs.
 a: <a:r_letter_a:393623734344351744>
 b: <a:r_letter_b:393623734034104322>
 c: <a:r_letter_c:393623734176448512>
@@ -40,3 +37,5 @@ z: <a:r_letter_z:393623735376150550>
 "$": <a:r_letter_dollar:393623734344351774>
 "&": <a:r_letter_and:393623733761212427>
 "@": <a:r_letter_at:393623734122053632>
+" ": " "
+".": "."

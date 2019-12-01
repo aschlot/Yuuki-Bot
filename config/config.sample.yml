@@ -1,5 +1,5 @@
 ##~~~ DO NOT OPEN THIS FILE IN NOTEPAD (Use a modern text editor such as Notepad++ or any Unix-based one)  ~~~##
-##~~~ If everything displays on one line, do not save the file and instead open in a different editor.      ~~~##
+##~~~ If everything displays on one line, do not save the file and instead open in a different editor.     ~~~##
 #######################################################################################################
 ## To get started, please create a bot account at https://discordapp.com/developers/applications/me  ##
 ## Then create a bot user, find the token and client id, and put them below.                         ##
@@ -8,27 +8,28 @@
 ## When you're done, save this file as `config.yml` (In the config folder)                           ##
 #######################################################################################################
 
-token: EXAMPLE # Get from https://discordapp.com/developers/applications/me
+#######################################################################################################
+### CORE SETTINGS                                                                                     #
+### These settings are REQUIRED for the bot to launch, and cannot be changed without restarting.      #
+#######################################################################################################
+
+token: MzA2MTQyMjU3ODE4NjMyMTkz.XdKs2A.Y22V1wOxnyBXtv5irZ5Ar4LbCHg # Get from https://discordapp.com/developers/applications/me
 client_id: 306142257818632193 # Also get from https://discordapp.com/developers/applications/me
 prefixes:
-  - "s!!" # Please change.
+  - "yuukib " # Please change.
 
 # This user will ALWAYS be owner. Regardless of any configured through the bot.
 # PLEASE CHANGE
-master_owner: 1234567890
-
-# Defaults to master_owner's DM inbox if not set.
-# dm_channel: 12345678901234
+master_owner: 228574821590499329
 
 redis_host: localhost
 redis_port: 6379
 redis_namespace: yuuki
 
-## Uncomment this line to use a password protected Redis instance.
-# redis_password: foobar
-
 # Google Translate API Key
-translate_api_key: INSERTHERE 
+# translate_api_key: INSERTHERE
+
+#######################################################################################################
 
 ## PLEASE CHANGE
 # Feel free to rip my image from https://cdn.discordapp.com/emojis/374262067529515008.png
@@ -87,12 +88,12 @@ invite_url: nil
 # plz dont set to false, closed source is baaad :(
 show_source: true
 # Change if using your own fork.
-source_url: https://github.com/yuuki-discord/Yuuki-Bot
+source_url: https://github.com/Seriell/Yuuki-Bot
 
 # Will disable the `help` command.
 show_help: true
 # Change if using your own fork or hosting your own help.
-help_url: https://github.com/yuuki-discord/Yuuki-Bot/wiki/commands
+help_url: https://github.com/Seriell/Yuuki-Bot/wiki/Commands
 
 show_support: true
 # Change to your server if using your own modified code.
@@ -102,8 +103,8 @@ show_donate_urls: true
 # Wrap in <> if using more than one (To avoid huge embeds).
 donate_urls:
   # It would be nice if you kept the original devs, but is not required.
-  - <https://paypal.me/ErisaArrow>
-  - <https://paypal.me/spotlightisok>
+  - <https://paypal.me/Seriel>
+# - <https://paypal.me/spotlightisok>
 # - <https://paypal.me/your_name_here>
 
 
@@ -122,7 +123,7 @@ catch_errors: true
 
 # Debug options, only change if contributing to Yuuki-Bot or making your own fork.
 
-# Loads in all the modules and then exits before running the bot.
+# Loads in all the old_cmds and then exits before running the bot.
 pretend_run: false
 # More terminal output than verbose.
 debug: false

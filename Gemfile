@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
-gem 'commandrb', git: 'https://owo.codes/Seriel/commandrb.git'
-gem 'discordrb'
+gem 'commandrb', git: 'https://github.com/Yuuki-Discord/commandrb.git'
+gem 'discordrb', git: 'https://github.com/meew0/discordrb.git'
 gem 'easy_translate', git: 'https://github.com/seejohnrun/easy_translate.git'
 gem 'haste'
 gem 'pomf.rb'
