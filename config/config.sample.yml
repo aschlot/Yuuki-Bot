@@ -13,7 +13,7 @@
 ### These settings are REQUIRED for the bot to launch, and cannot be changed without restarting.      #
 #######################################################################################################
 
-token: MzA2MTQyMjU3ODE4NjMyMTkz.XdKs2A.Y22V1wOxnyBXtv5irZ5Ar4LbCHg # Get from https://discordapp.com/developers/applications/me
+token: TOKEN_HERE # Get from https://discordapp.com/developers/applications/me
 client_id: 306142257818632193 # Also get from https://discordapp.com/developers/applications/me
 prefixes:
   - "yuukib " # Please change.
